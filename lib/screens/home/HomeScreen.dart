@@ -8,6 +8,14 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    var subjects = ["English", "Maths", "Computer", "Physics", "Biology"];
+    List<Widget> listOfSubjects = [];
+
+    return Scaffold(
+      body: Container(
+          child: Wrap(
+        children: listOfSubjects,
+      )),
+    );
   }
 }
