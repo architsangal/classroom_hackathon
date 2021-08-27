@@ -1,2 +1,2 @@
-# Flipr
+# Classroom Hackathon
 Repo

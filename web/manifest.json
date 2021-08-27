@@ -1,6 +1,6 @@
 {
-    "name": "flipr_hackathon",
-    "short_name": "flipr_hackathon",
+    "name": "classroom_hackathon",
+    "short_name": "classroom_hackathon",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
