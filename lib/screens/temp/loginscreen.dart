@@ -85,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding:
                         const EdgeInsets.symmetric(horizontal: defaultPadding),
                     child: Text(
-                      "Flipr Classroom",
+                      "Classroom",
                       style: Theme.of(context).textTheme.headline2!.copyWith(
                           fontWeight: FontWeight.bold, color: Colors.white),
                     ),
