@@ -1,5 +1,9 @@
 import 'package:classroom_hackathon/constants.dart';
+import 'package:classroom_hackathon/providers/app.dart';
+import 'package:classroom_hackathon/providers/auth.dart';
+import 'package:classroom_hackathon/screens/home/HomeScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -11,6 +15,25 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
+    final AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    final AppProvider appProvider = Provider.of<AppProvider>(context);
+    // GoogleAuthProvider googleProvider = GoogleAuthProvider();
+    // googleProvider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+    // googleProvider.setCustomParameters({
+    //   'login_hint': 'user@example.com'
+    // });
+
+    // Future<UserCredential> signInWithGoogle() async {
+    //   GoogleAuthProvider googleProvider = GoogleAuthProvider();
+
+    //   googleProvider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+    //   googleProvider.setCustomParameters({
+    //     'login_hint': 'user@example.com'
+    //   });
+
+    //   return await FirebaseAuth.instance.signInWithPopup(googleProvider);
+    // }
+
     final emailField = TextField(
       obscureText: false,
       style: Theme.of(context).textTheme.subtitle1,
@@ -110,7 +133,25 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     Text("or"),
                     InkWell(
-                      onTap: () {},
+                      onTap: () async {
+                        appProvider.changeLoading();
+                        Map result = await authProvider.signInWithGoogle();
+                        bool success = result['success'];
+                        String message = result['message'];
+                        print(message);
+                        if (!success) {
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(SnackBar(content: Text(message)));
+                          appProvider.changeLoading();
+                        } else {
+                          appProvider.changeLoading();
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => HomeScreen(),
+                              ));
+                        }
+                      },
                       child: Ink(
                         color: Colors.white,
                         child: Padding(
